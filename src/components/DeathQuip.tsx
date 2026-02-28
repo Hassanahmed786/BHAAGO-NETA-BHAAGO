@@ -65,10 +65,16 @@ function injectStyles() {
     }
     /* Politician photo: fade in → hold → fade out over 9s total */
     @keyframes dq-photo {
-      0%   { opacity: 0;    transform: scale(1.06); }
-      8%   { opacity: 1;    transform: scale(1); }
+      0%   { opacity: 0;    transform: scale(1.08); }
+      10%  { opacity: 1;    transform: scale(1); }
       80%  { opacity: 1;    transform: scale(1); }
-      100% { opacity: 0;    transform: scale(0.96); }
+      100% { opacity: 0;    transform: scale(0.94); }
+    }
+    @keyframes dq-photo-bg {
+      0%   { opacity: 0; }
+      10%  { opacity: 1; }
+      80%  { opacity: 1; }
+      100% { opacity: 0; }
     }
     /* Quip text glow pulse */
     @keyframes dq-glow {
@@ -78,14 +84,26 @@ function injectStyles() {
     .dq-blink      { animation: dq-blink 0.8s step-end infinite; }
     .dq-shake      { animation: dq-shake 0.4s ease; }
     .dq-quip-text  { animation: dq-glow  2.4s ease-in-out infinite; }
+    .dq-photo-wrap {
+      animation: dq-photo-bg 9s ease forwards;
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 38;
+    }
     .dq-photo-img  {
       animation: dq-photo 9s ease forwards;
-      border-radius: 6px;
       object-fit: cover;
-      object-position: top;
-      border: 2px solid rgba(255,0,64,0.5);
-      box-shadow: 0 0 16px rgba(255,0,64,0.4), 0 0 32px rgba(131,110,249,0.2);
+      object-position: top center;
+      border: 3px solid rgba(255,0,64,0.7);
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(255,0,64,0.5), 0 0 80px rgba(131,110,249,0.35), 0 8px 60px rgba(0,0,0,0.8);
       display: block;
+      max-height: 70vh;
+      width: auto;
     }
   `;
   document.head.appendChild(s);
@@ -113,17 +131,36 @@ export const DeathQuip: React.FC<Props> = ({ killerType, characterId, onSkip }) 
     <div
       onClick={onSkip}
       style={{
-        position:       "absolute",
-        top:             0,
-        left:            0,
-        right:           0,
+        position:       "fixed",
+        inset:           0,
         zIndex:          40,
         pointerEvents:   onSkip ? "auto" : "none",
-        padding:         "0.75rem",
         cursor:          onSkip ? "pointer" : "default",
-        animation:       "dq-slide-in 0.35s cubic-bezier(0.22,1,0.36,1) forwards",
       }}
     >
+      {/* ── Big politician photo — full screen centered overlay ── */}
+      <div className="dq-photo-wrap">
+        <img
+          key={characterId}
+          src={POLITICIAN_IMAGES[characterId]}
+          alt=""
+          className="dq-photo-img"
+          onError={(e) => { (e.currentTarget.parentElement as HTMLElement).style.display = "none"; }}
+        />
+      </div>
+
+      {/* ── Roast card — slides in from top ── */}
+      <div
+        style={{
+          position:   "absolute",
+          top:         0,
+          left:        0,
+          right:       0,
+          padding:     "0.75rem",
+          animation:   "dq-slide-in 0.35s cubic-bezier(0.22,1,0.36,1) forwards",
+          zIndex:      2,
+        }}
+      >
       {/* ── Main card ── */}
       <div
         style={{
@@ -212,52 +249,31 @@ export const DeathQuip: React.FC<Props> = ({ killerType, characterId, onSkip }) 
 
         {/* ── Quip typewriter body ── */}
         <div style={{
-          padding:     "0.75rem",
-          minHeight:   "5rem",
-          position:    "relative",
-          zIndex:      2,
-          display:     "flex",
-          gap:         "0.75rem",
-          alignItems:  "flex-start",
+          padding:  "0.75rem",
+          minHeight: "4rem",
+          position: "relative",
+          zIndex:   2,
         }}>
-          {/* Politician photo — fades in/out automatically */}
-          <div style={{ flexShrink: 0 }}>
-            <img
-              key={characterId}
-              src={POLITICIAN_IMAGES[characterId]}
-              alt=""
-              className="dq-photo-img"
-              width={110}
-              height={140}
-              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-            />
+          <div style={{
+            fontSize:      "0.4rem",
+            color:         "#ff4466",
+            letterSpacing: "0.25em",
+            marginBottom:  "0.5rem",
+          }}>
+            🔥 THE ROAST 🔥
           </div>
-
-          {/* Roast text — bigger, glowing */}
-          <div style={{ flex: 1 }}>
-            {/* "THEY SAY:" label */}
-            <div style={{
-              fontSize:      "0.4rem",
-              color:         "#ff4466",
-              letterSpacing: "0.25em",
-              marginBottom:  "0.45rem",
-              textTransform: "uppercase",
-            }}>
-              🔥 THE ROAST 🔥
-            </div>
-            <div
-              className="dq-quip-text"
-              style={{
-                fontSize:      "0.72rem",
-                color:         "#e9d5ff",
-                lineHeight:    "1.85",
-                letterSpacing: "0.04em",
-                fontFamily:    "'Press Start 2P', monospace",
-              }}
-            >
-              {typed}
-              {!done && <span className="dq-blink" style={{ color: "#836EF9" }}>█</span>}
-            </div>
+          <div
+            className="dq-quip-text"
+            style={{
+              fontSize:      "0.72rem",
+              color:         "#e9d5ff",
+              lineHeight:    "1.85",
+              letterSpacing: "0.04em",
+              fontFamily:    "'Press Start 2P', monospace",
+            }}
+          >
+            {typed}
+            {!done && <span className="dq-blink" style={{ color: "#836EF9" }}>█</span>}
           </div>
         </div>
 
@@ -294,6 +310,7 @@ export const DeathQuip: React.FC<Props> = ({ killerType, characterId, onSkip }) 
             <span style={{ color: "#c4b5fd" }}>CLICK / TAP TO SKIP ▶</span>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
