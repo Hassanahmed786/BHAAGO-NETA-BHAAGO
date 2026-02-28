@@ -87,10 +87,8 @@ function injectStyles() {
     .dq-photo-wrap {
       animation: dq-photo-bg 9s ease forwards;
       position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      bottom: 1.5rem;
+      left: 1.5rem;
       pointer-events: none;
       z-index: 38;
     }
@@ -99,11 +97,11 @@ function injectStyles() {
       object-fit: cover;
       object-position: top center;
       border: 3px solid rgba(255,0,64,0.7);
-      border-radius: 12px;
-      box-shadow: 0 0 40px rgba(255,0,64,0.5), 0 0 80px rgba(131,110,249,0.35), 0 8px 60px rgba(0,0,0,0.8);
+      border-radius: 10px;
+      box-shadow: 0 0 24px rgba(255,0,64,0.5), 0 0 48px rgba(131,110,249,0.3), 0 8px 32px rgba(0,0,0,0.9);
       display: block;
-      max-height: 70vh;
-      width: auto;
+      width: clamp(120px, 22vw, 200px);
+      height: auto;
     }
   `;
   document.head.appendChild(s);
