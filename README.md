@@ -2,7 +2,7 @@
 
 > **Scandals se Bhago · Monad pe Daago**
 >
-> An endless runner blockchain game on Monad Testnet. Play as world politicians — Modi, Trump, Rahul, Biden, Kejriwal, Putin — dodge scandals, collect bribe coins, and etch your score on-chain at lightning speed.
+> A 2D endless side-scrolling blockchain game on Monad Testnet. Play as world politicians — Modi, Trump, Rahul, Biden, Kejriwal, Putin — dodge incoming scandals, collect bribe coins, and etch your score on-chain at lightning speed.
 
 ---
 
@@ -14,11 +14,13 @@
 
 ## 🕹️ Gameplay
 
-- **3 lanes** — left / centre / right
-- **Jump** with `↑ / W / Space` — **Slide** with `↓ / S`
-- **Switch lanes** with `← → / A D`
+A classic **2D side-scrolling endless runner** — your politician sprints forward as obstacles (scandals, subpoenas, reporters, riot shields) scroll in from the right.
+
+- **Jump** with `↑ / W / Space` to leap over obstacles
+- **Slide** with `↓ / S` to duck under obstacles
+- **Dodge left / right** with `← → / A D` to sidestep incoming threats
 - **Activate special power** with `Shift / Z`
-- Swipe gestures supported on mobile
+- Swipe & tap gestures supported on mobile
 
 | Character | Special Power | Description |
 |-----------|--------------|-------------|
