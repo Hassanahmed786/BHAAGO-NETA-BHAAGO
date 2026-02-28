@@ -4,6 +4,17 @@ import { ObstacleType }   from "../game/Obstacle";
 import { CharacterId }    from "../game/characters/drawCharacters";
 import { getDeathQuip, OBSTACLE_LABEL, OBSTACLE_EMOJI } from "../game/deathQuips";
 
+// Map characterId → image in public/politicians/
+// Drop your images there named exactly as below.
+const POLITICIAN_IMAGES: Record<CharacterId, string> = {
+  0: "/politicians/0.jpg",  // Modi
+  1: "/politicians/1.jpg",  // Trump
+  2: "/politicians/2.jpg",  // Rahul
+  3: "/politicians/3.jpg",  // Kejriwal
+  4: "/politicians/4.jpg",  // Biden
+  5: "/politicians/5.jpg",  // Putin
+};
+
 interface Props {
   killerType:  ObstacleType;
   characterId: CharacterId;
@@ -52,8 +63,30 @@ function injectStyles() {
       from { width: 100%; }
       to   { width: 0%; }
     }
-    .dq-blink  { animation: dq-blink  0.8s step-end infinite; }
-    .dq-shake  { animation: dq-shake  0.4s ease; }
+    /* Politician photo: fade in → hold → fade out over 9s total */
+    @keyframes dq-photo {
+      0%   { opacity: 0;    transform: scale(1.06); }
+      8%   { opacity: 1;    transform: scale(1); }
+      80%  { opacity: 1;    transform: scale(1); }
+      100% { opacity: 0;    transform: scale(0.96); }
+    }
+    /* Quip text glow pulse */
+    @keyframes dq-glow {
+      0%,100% { text-shadow: 0 0 8px #c4b5fd88; }
+      50%      { text-shadow: 0 0 18px #c4b5fdcc, 0 0 32px #836EF966; }
+    }
+    .dq-blink      { animation: dq-blink 0.8s step-end infinite; }
+    .dq-shake      { animation: dq-shake 0.4s ease; }
+    .dq-quip-text  { animation: dq-glow  2.4s ease-in-out infinite; }
+    .dq-photo-img  {
+      animation: dq-photo 9s ease forwards;
+      border-radius: 6px;
+      object-fit: cover;
+      object-position: top;
+      border: 2px solid rgba(255,0,64,0.5);
+      box-shadow: 0 0 16px rgba(255,0,64,0.4), 0 0 32px rgba(131,110,249,0.2);
+      display: block;
+    }
   `;
   document.head.appendChild(s);
 }
@@ -179,14 +212,52 @@ export const DeathQuip: React.FC<Props> = ({ killerType, characterId, onSkip }) 
 
         {/* ── Quip typewriter body ── */}
         <div style={{
-          padding:     "0.6rem 0.75rem 0.65rem",
-          minHeight:   "3.5rem",
+          padding:     "0.75rem",
+          minHeight:   "5rem",
           position:    "relative",
           zIndex:      2,
+          display:     "flex",
+          gap:         "0.75rem",
+          alignItems:  "flex-start",
         }}>
-          <div style={{ fontSize: "0.5rem", color: "#c4b5fd", lineHeight: "1.7", letterSpacing: "0.05em" }}>
-            {typed}
-            {!done && <span className="dq-blink" style={{ color: "#836EF9" }}>█</span>}
+          {/* Politician photo — fades in/out automatically */}
+          <div style={{ flexShrink: 0 }}>
+            <img
+              key={characterId}
+              src={POLITICIAN_IMAGES[characterId]}
+              alt=""
+              className="dq-photo-img"
+              width={110}
+              height={140}
+              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+            />
+          </div>
+
+          {/* Roast text — bigger, glowing */}
+          <div style={{ flex: 1 }}>
+            {/* "THEY SAY:" label */}
+            <div style={{
+              fontSize:      "0.4rem",
+              color:         "#ff4466",
+              letterSpacing: "0.25em",
+              marginBottom:  "0.45rem",
+              textTransform: "uppercase",
+            }}>
+              🔥 THE ROAST 🔥
+            </div>
+            <div
+              className="dq-quip-text"
+              style={{
+                fontSize:      "0.72rem",
+                color:         "#e9d5ff",
+                lineHeight:    "1.85",
+                letterSpacing: "0.04em",
+                fontFamily:    "'Press Start 2P', monospace",
+              }}
+            >
+              {typed}
+              {!done && <span className="dq-blink" style={{ color: "#836EF9" }}>█</span>}
+            </div>
           </div>
         </div>
 
