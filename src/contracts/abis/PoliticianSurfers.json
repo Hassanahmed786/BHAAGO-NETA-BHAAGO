@@ -1,0 +1,128 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "CoinCollected",
+    "inputs": [
+      { "name": "player",     "type": "address", "indexed": true  },
+      { "name": "amount",     "type": "uint256", "indexed": false },
+      { "name": "totalCoins", "type": "uint256", "indexed": false },
+      { "name": "timestamp",  "type": "uint256", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "ScoreSubmitted",
+    "inputs": [
+      { "name": "player",      "type": "address", "indexed": true  },
+      { "name": "score",       "type": "uint256", "indexed": false },
+      { "name": "totalCoins",  "type": "uint256", "indexed": false },
+      { "name": "gamesPlayed", "type": "uint256", "indexed": false },
+      { "name": "timestamp",   "type": "uint256", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "CharacterSelected",
+    "inputs": [
+      { "name": "player",      "type": "address", "indexed": true  },
+      { "name": "characterId", "type": "uint8",   "indexed": false },
+      { "name": "timestamp",   "type": "uint256", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "PowerUsed",
+    "inputs": [
+      { "name": "player",      "type": "address", "indexed": true  },
+      { "name": "characterId", "type": "uint8",   "indexed": false },
+      { "name": "powerName",   "type": "string",  "indexed": false },
+      { "name": "timestamp",   "type": "uint256", "indexed": false }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "selectCharacter",
+    "inputs": [
+      { "name": "player",      "type": "address" },
+      { "name": "characterId", "type": "uint8"   }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "recordCoinCollected",
+    "inputs": [
+      { "name": "player", "type": "address" },
+      { "name": "amount", "type": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "submitScore",
+    "inputs": [
+      { "name": "player",      "type": "address" },
+      { "name": "score",       "type": "uint256" },
+      { "name": "totalCoins",  "type": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "recordPowerUsed",
+    "inputs": [
+      { "name": "player",    "type": "address" },
+      { "name": "powerName", "type": "string"  }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getPlayerStats",
+    "inputs": [
+      { "name": "player", "type": "address" }
+    ],
+    "outputs": [
+      { "name": "totalCoins",  "type": "uint256" },
+      { "name": "highScore",   "type": "uint256" },
+      { "name": "characterId", "type": "uint8"   },
+      { "name": "gamesPlayed", "type": "uint256" },
+      { "name": "lastPlayed",  "type": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getGlobalStats",
+    "inputs": [],
+    "outputs": [
+      { "name": "_totalPlayers", "type": "uint256" },
+      { "name": "_totalCoins",   "type": "uint256" },
+      { "name": "_totalGames",   "type": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "players",
+    "inputs": [{ "name": "", "type": "address" }],
+    "outputs": [
+      { "name": "totalCoins",  "type": "uint256" },
+      { "name": "highScore",   "type": "uint256" },
+      { "name": "characterId", "type": "uint8"   },
+      { "name": "gamesPlayed", "type": "uint256" },
+      { "name": "lastPlayed",  "type": "uint256" },
+      { "name": "exists",      "type": "bool"    }
+    ],
+    "stateMutability": "view"
+  }
+]

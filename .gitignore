@@ -1,0 +1,23 @@
+# env (contains private keys — never commit)
+.env
+.env.*
+
+# dependencies
+node_modules/
+
+# build output
+dist/
+build/
+
+# Hardhat
+artifacts/
+cache/
+typechain-types/
+
+# editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,159 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "LobbyCreated",
+    "inputs": [
+      { "name": "code",    "type": "bytes6",  "indexed": true  },
+      { "name": "creator", "type": "address", "indexed": true  },
+      { "name": "stake",   "type": "uint256", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "LobbyJoined",
+    "inputs": [
+      { "name": "code",       "type": "bytes6",  "indexed": true  },
+      { "name": "challenger", "type": "address", "indexed": true  }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "ScoreSubmitted",
+    "inputs": [
+      { "name": "code",   "type": "bytes6",  "indexed": true  },
+      { "name": "player", "type": "address", "indexed": true  },
+      { "name": "score",  "type": "uint256", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "LobbySettled",
+    "inputs": [
+      { "name": "code",   "type": "bytes6",  "indexed": true  },
+      { "name": "winner", "type": "address", "indexed": true  },
+      { "name": "prize",  "type": "uint256", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "LobbyCancelled",
+    "inputs": [
+      { "name": "code", "type": "bytes6", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "Withdrawn",
+    "inputs": [
+      { "name": "player", "type": "address", "indexed": true  },
+      { "name": "amount", "type": "uint256", "indexed": false }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "createLobby",
+    "inputs": [
+      { "name": "salt", "type": "uint256" }
+    ],
+    "outputs": [
+      { "name": "code", "type": "bytes6" }
+    ],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "joinLobby",
+    "inputs": [
+      { "name": "code", "type": "bytes6" }
+    ],
+    "outputs": [],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "submitScore",
+    "inputs": [
+      { "name": "code",  "type": "bytes6"  },
+      { "name": "score", "type": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "claimWinnings",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "cancelLobby",
+    "inputs": [
+      { "name": "code", "type": "bytes6" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getLobby",
+    "inputs": [
+      { "name": "code", "type": "bytes6" }
+    ],
+    "outputs": [
+      { "name": "creator",             "type": "address" },
+      { "name": "challenger",          "type": "address" },
+      { "name": "stake",               "type": "uint256" },
+      { "name": "creatorScore",        "type": "uint256" },
+      { "name": "challengerScore",     "type": "uint256" },
+      { "name": "creatorSubmitted",    "type": "bool"    },
+      { "name": "challengerSubmitted", "type": "bool"    },
+      { "name": "settled",             "type": "bool"    },
+      { "name": "winner",              "type": "address" },
+      { "name": "active",              "type": "bool"    }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "pendingFor",
+    "inputs": [
+      { "name": "player", "type": "address" }
+    ],
+    "outputs": [
+      { "name": "", "type": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "pendingWithdrawals",
+    "inputs": [
+      { "name": "", "type": "address" }
+    ],
+    "outputs": [
+      { "name": "", "type": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "owner",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "FEE_BPS",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint16" }],
+    "stateMutability": "view"
+  }
+]

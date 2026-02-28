@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   POLITICIAN SURFERS — Global Styles
+   ============================================================ */
+
+/* Root reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0e0b1e;
+  color: #fff;
+}
+
+/* ---- Fonts ---- */
+.font-pixel   { font-family: 'Press Start 2P', monospace; }
+.font-rajdhani { font-family: 'Rajdhani', sans-serif; }
+
+/* ---- Custom scrollbar ---- */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: #0e0b1e; }
+::-webkit-scrollbar-thumb  { background: #836EF9; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9b87fa; }
+
+/* ---- Neon glow shadows ---- */
+.shadow-neon_purple  { box-shadow: 0 0 20px rgba(131, 110, 249, 0.6), 0 0 40px rgba(131, 110, 249, 0.3); }
+.shadow-neon_green   { box-shadow: 0 0 20px rgba(57, 255, 20, 0.6),  0 0 40px rgba(57, 255, 20, 0.3); }
+.shadow-neon_pink    { box-shadow: 0 0 20px rgba(255, 0, 128, 0.6),  0 0 40px rgba(255, 0, 128, 0.3); }
+
+/* ---- CRT Scanline overlay ---- */
+.scanline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.05) 3px,
+    rgba(0, 0, 0, 0.05) 4px
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ---- Monad gradient background ---- */
+.bg-monad-gradient {
+  background: radial-gradient(ellipse at 50% 30%, #1a0e3a 0%, #0e0b1e 70%);
+}
+
+/* ---- Animations ---- */
+@keyframes slide-in-right {
+  from { transform: translateX(120%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes slide-out-right {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(120%); opacity: 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { text-shadow: 0 0 10px #836EF9, 0 0 20px #836EF9; }
+  50%       { text-shadow: 0 0 20px #836EF9, 0 0 40px #836EF9, 0 0 60px #836EF9; }
+}
+
+@keyframes neon-pulse-green {
+  0%, 100% { text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14; }
+  50%       { text-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14; }
+}
+
+@keyframes money-fall {
+  0%   { transform: translateY(-20px) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(110vh)  rotate(720deg); opacity: 0.3; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes power-bar-glow {
+  0%, 100% { box-shadow: 0 0 4px currentColor; }
+  50%       { box-shadow: 0 0 12px currentColor, 0 0 24px currentColor; }
+}
+
+/* ---- Utility classes ---- */
+.animate-slide-in  { animation: slide-in-right 0.35s cubic-bezier(.16,1,.3,1) forwards; }
+.animate-fade-in   { animation: fade-in 0.3s ease forwards; }
+.animate-neon-pulse         { animation: neon-pulse       2s ease-in-out infinite; }
+.animate-neon-pulse-green   { animation: neon-pulse-green 2s ease-in-out infinite; }
+
+/* Gradient text shimmer for title */
+.text-shimmer {
+  background: linear-gradient(90deg, #836EF9, #39ff14, #ff0080, #ffd700, #836EF9);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Pixel rendering for canvases */
+canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Disable default button outline */
+button:focus { outline: none; }
+button:focus-visible { outline: 2px solid #836EF9; outline-offset: 2px; }
+
+/* Touch pan prevention for game canvas */
+.touch-none { touch-action: none; }

@@ -1,0 +1,124 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "Transfer",
+    "inputs": [
+      { "name": "from",    "type": "address", "indexed": true },
+      { "name": "to",      "type": "address", "indexed": true },
+      { "name": "tokenId", "type": "uint256", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "CharacterMinted",
+    "inputs": [
+      { "name": "player",      "type": "address", "indexed": true  },
+      { "name": "characterId", "type": "uint8",   "indexed": false },
+      { "name": "tokenId",     "type": "uint256", "indexed": false },
+      { "name": "timestamp",   "type": "uint256", "indexed": false }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "mintCharacter",
+    "inputs": [
+      { "name": "characterId", "type": "uint8" }
+    ],
+    "outputs": [
+      { "name": "tokenId", "type": "uint256" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "ownsCharacter",
+    "inputs": [
+      { "name": "player",      "type": "address" },
+      { "name": "characterId", "type": "uint8"   }
+    ],
+    "outputs": [
+      { "name": "", "type": "bool" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getOwnedCharacters",
+    "inputs": [
+      { "name": "player", "type": "address" }
+    ],
+    "outputs": [
+      { "name": "", "type": "uint8[]" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "tokenURI",
+    "inputs": [
+      { "name": "tokenId", "type": "uint256" }
+    ],
+    "outputs": [
+      { "name": "", "type": "string" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "ownerOf",
+    "inputs": [
+      { "name": "id", "type": "uint256" }
+    ],
+    "outputs": [
+      { "name": "owner", "type": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "balanceOf",
+    "inputs": [
+      { "name": "owner", "type": "address" }
+    ],
+    "outputs": [
+      { "name": "", "type": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "name",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "string" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "symbol",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "string" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "nextTokenId",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "playerCharacterToken",
+    "inputs": [
+      { "name": "", "type": "address" },
+      { "name": "", "type": "uint8"   }
+    ],
+    "outputs": [{ "name": "", "type": "uint256" }],
+    "stateMutability": "view"
+  }
+]

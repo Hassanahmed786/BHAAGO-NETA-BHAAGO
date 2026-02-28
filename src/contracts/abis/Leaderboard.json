@@ -1,0 +1,85 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "ScoreUpdated",
+    "inputs": [
+      { "name": "player",      "type": "address", "indexed": true  },
+      { "name": "displayName", "type": "string",  "indexed": false },
+      { "name": "score",       "type": "uint256", "indexed": false },
+      { "name": "rank",        "type": "uint256", "indexed": false },
+      { "name": "timestamp",   "type": "uint256", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "NewTopPlayer",
+    "inputs": [
+      { "name": "player",      "type": "address", "indexed": true  },
+      { "name": "displayName", "type": "string",  "indexed": false },
+      { "name": "score",       "type": "uint256", "indexed": false },
+      { "name": "timestamp",   "type": "uint256", "indexed": false }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "updateScore",
+    "inputs": [
+      { "name": "player",      "type": "address" },
+      { "name": "displayName", "type": "string"  },
+      { "name": "score",       "type": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getTopPlayers",
+    "inputs": [
+      { "name": "count", "type": "uint8" }
+    ],
+    "outputs": [
+      { "name": "addrs",      "type": "address[]" },
+      { "name": "names",      "type": "string[]"  },
+      { "name": "scores",     "type": "uint256[]" },
+      { "name": "timestamps", "type": "uint256[]" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getPlayerRank",
+    "inputs": [
+      { "name": "player", "type": "address" }
+    ],
+    "outputs": [
+      { "name": "rank", "type": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getPlayerEntry",
+    "inputs": [
+      { "name": "player", "type": "address" }
+    ],
+    "outputs": [
+      { "name": "displayName", "type": "string"  },
+      { "name": "highScore",   "type": "uint256" },
+      { "name": "rank",        "type": "uint256" },
+      { "name": "lastUpdated", "type": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "totalPlayers",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256" }],
+    "stateMutability": "view"
+  }
+]
