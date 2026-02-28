@@ -1,10 +1,18 @@
-# 🏃 POLITICIAN SURFERS
+# 🏃 BHAAGO NETA BHAAGO
 
-> An endless runner blockchain game on Monad Testnet. Play as world politicians — Modi, Trump, Rahul, Biden, Kejriwal, Putin — dodge obstacles, collect bribe coins, and submit scores on-chain at lightning speed.
+> **Scandals se Bhago · Monad pe Daago**
+>
+> An endless runner blockchain game on Monad Testnet. Play as world politicians — Modi, Trump, Rahul, Biden, Kejriwal, Putin — dodge scandals, collect bribe coins, and etch your score on-chain at lightning speed.
 
 ---
 
-## 🎮 Demo Gameplay
+## 🎮 Live Demo
+
+**[▶ Play Now → bhaago-neta-bhaago.vercel.app](https://bhaago-neta-bhaago.vercel.app)**
+
+---
+
+## 🕹️ Gameplay
 
 - **3 lanes** — left / centre / right
 - **Jump** with `↑ / W / Space` — **Slide** with `↓ / S`
@@ -12,18 +20,56 @@
 - **Activate special power** with `Shift / Z`
 - Swipe gestures supported on mobile
 
-| Character | Special Power |
-|-----------|--------------|
-| Narendra Modi | Vikas Shield — invincibility burst |
-| Donald Trump | The Wall — destroys next obstacle |
-| Rahul Gandhi | Bharat Jodo — coin magnet |
-| Arvind Kejriwal | AAP Scan — reveals hidden coins |
-| Joe Biden | Aviator Boost — speed burst + multiplier |
-| Vladimir Putin | KGB Ghost — phase through obstacles |
+| Character | Special Power | Description |
+|-----------|--------------|-------------|
+| 🇮🇳 Narendra Modi | Vikas Shield | Invincibility burst |
+| 🇺🇸 Donald Trump | The Wall | Destroys next obstacle |
+| 🤚 Rahul Gandhi | Bharat Jodo | Coin magnet |
+| 🧣 Arvind Kejriwal | AAP Scan | Reveals hidden coins |
+| 🕶️ Joe Biden | Aviator Boost | Speed burst + score multiplier |
+| 🐻 Vladimir Putin | KGB Ghost | Phase through obstacles |
 
 ---
 
-## 🚀 Quick Start
+## ⛓️ On-Chain Features
+
+- **Select your character** on-chain before each game
+- **Submit score** on-chain after game ends (user-initiated — zero interruptions during play)
+- **Global leaderboard** — top 100 players ranked by score
+- **Character NFTs** — ERC-721 with on-chain SVG metadata, mintable from the NFT Gallery
+- **Private lobbies** — invite-only rooms with MON staking; winner takes the pot
+- **TX speed feed** — live Monad confirmation times displayed in-game (typically < 500 ms)
+
+---
+
+## 📦 Smart Contracts (Monad Testnet)
+
+| Contract | Address |
+|----------|---------|
+| PoliticianSurfers (main game) | `0x1084c097e211E488041BC38CF926C82584890DA5` |
+| Leaderboard | `0x75B6D31d2c48bBCf42037c79708640916DE73bFc` |
+| PoliticianNFT (ERC-721) | `0xA6EF03b53Bb8ae3914AAED537c6e6C1c3F8c0117` |
+| PrivateLobby (staking) | `0x6f0fB75296Ba117A83023648e1b57ef653560Fe7` |
+
+> All contracts live on **Monad Testnet** (Chain ID `10143`).
+
+---
+
+## 🌐 Network Details
+
+| Parameter | Value |
+|-----------|-------|
+| Network Name | Monad Testnet |
+| Chain ID | 10143 |
+| RPC URL | `https://testnet-rpc.monad.xyz` |
+| Explorer | `https://testnet.monadexplorer.com` |
+| Currency | MON |
+
+MetaMask automatically prompts to add/switch to Monad Testnet on connect.
+
+---
+
+## 🚀 Local Setup
 
 ### 1. Install dependencies
 
@@ -39,12 +85,13 @@ cp .env.example .env
 ```
 
 Edit `.env`:
+
 ```env
 PRIVATE_KEY=<your_wallet_private_key>
 MONAD_RPC=https://testnet-rpc.monad.xyz
 ```
 
-> ⚠️ Your wallet needs MON tokens from the [Monad Testnet Faucet](https://faucet.monad.xyz).
+> ⚠️ Your wallet needs MON tokens — get them at [faucet.monad.xyz](https://faucet.monad.xyz).
 
 ### 3. Compile contracts
 
@@ -52,13 +99,11 @@ MONAD_RPC=https://testnet-rpc.monad.xyz
 npx hardhat compile
 ```
 
-### 4. Deploy to Monad Testnet
+### 4. (Optional) Deploy your own contracts
 
 ```bash
 npx hardhat run scripts/deploy.js --network monad-testnet
 ```
-
-This automatically writes contract addresses to `src/contracts/addresses.ts`.
 
 ### 5. Start the game
 
@@ -70,84 +115,42 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ---
 
-## 🌐 Network Details
-
-| Parameter | Value |
-|-----------|-------|
-| Network Name | Monad Testnet |
-| Chain ID | 10143 |
-| RPC URL | https://testnet-rpc.monad.xyz |
-| Explorer | https://testnet.monadexplorer.com |
-| Currency | MON |
-
-MetaMask will automatically prompt to add/switch to Monad Testnet when you connect.
-
----
-
-## ⛓️ Smart Contracts
-
-### `PoliticianSurfers.sol`
-Main game contract. Records character selection, coin collection (batched every 5), and final scores.
-
-```solidity
-selectCharacter(address player, uint8 characterId)
-recordCoinCollected(address player, uint256 batchCount)
-submitScore(address player, uint256 score, uint256 coins)
-getPlayerStats(address player) → PlayerStats
-```
-
-### `Leaderboard.sol`
-On-chain global leaderboard, top-100 sorted by score.
-
-```solidity
-updateScore(address player, string name, uint256 score)
-getTopPlayers(uint8 count) → (addresses, names, scores, timestamps)
-getPlayerRank(address player) → uint256
-```
-
-### `PoliticianNFT.sol`
-ERC-721 character NFTs with on-chain SVG metadata. One NFT per wallet per character.
-
-```solidity
-mintCharacter(uint8 characterId)
-ownsCharacter(address player, uint8 characterId) → bool
-getOwnedCharacters(address player) → uint8[]
-tokenURI(uint256 tokenId) → string  // base64 JSON + inline SVG
-```
-
----
-
 ## 📁 Project Structure
 
 ```
 politician-surfers/
 ├── contracts/
-│   ├── PoliticianSurfers.sol
-│   ├── Leaderboard.sol
-│   └── PoliticianNFT.sol
+│   ├── PoliticianSurfers.sol     # Main game + score logic
+│   ├── Leaderboard.sol           # On-chain top-100 leaderboard
+│   ├── PoliticianNFT.sol         # ERC-721 with inline SVG metadata
+│   └── PrivateLobby.sol          # Staked invite-only lobbies
 ├── scripts/
 │   └── deploy.js
+├── public/
+│   └── politicians/              # Politician photos (death screen overlay)
 ├── src/
 │   ├── game/
-│   │   ├── characters/drawCharacters.ts   # Canvas pixel-art draw functions
-│   │   ├── GameEngine.ts                  # Main 60fps game loop
-│   │   ├── Player.ts                      # Player physics + power system
-│   │   ├── Obstacle.ts                    # Obstacle spawner
-│   │   ├── Coin.ts                        # Coin spawner + magnet
-│   │   ├── Background.ts                  # 3-layer parallax
-│   │   ├── Renderer.ts                    # Canvas drawing + particles
-│   │   └── SoundEngine.ts                 # Web Audio API sounds
+│   │   ├── GameEngine.ts         # 60fps game loop
+│   │   ├── Player.ts             # Physics + power system
+│   │   ├── Obstacle.ts           # Obstacle spawner
+│   │   ├── Coin.ts               # Coin spawner + magnet
+│   │   ├── Background.ts         # 3-layer parallax
+│   │   ├── Renderer.ts           # Canvas draw + particles
+│   │   └── SoundEngine.ts        # Web Audio API sounds
 │   ├── components/
 │   │   ├── MenuScreen.tsx
 │   │   ├── CharacterSelect.tsx
 │   │   ├── GameCanvas.tsx
 │   │   ├── GameHUD.tsx
-│   │   ├── GameOver.tsx
+│   │   ├── GameOver.tsx          # Coin rain, tier badge, character verdicts
+│   │   ├── DeathQuip.tsx         # Death roast overlay + politician photo
 │   │   ├── Leaderboard.tsx
+│   │   ├── NFTGallery.tsx
+│   │   ├── PrivateLobby.tsx
 │   │   ├── WalletButton.tsx
 │   │   └── TxFeed.tsx
 │   ├── contracts/
-│   │   ├── addresses.ts                   # Auto-written by deploy.js
+│   │   ├── addresses.ts
 │   │   └── abis/
 │   ├── hooks/
 │   │   ├── useWallet.ts
@@ -157,7 +160,7 @@ politician-surfers/
 │   ├── App.tsx
 │   ├── main.tsx
 │   └── styles/index.css
-├── hardhat.config.ts
+├── hardhat.config.cjs
 ├── vite.config.ts
 └── .env.example
 ```
@@ -169,22 +172,23 @@ politician-surfers/
 | Layer | Technology |
 |-------|-----------|
 | Frontend | React 18 + Vite 5 + TypeScript |
-| Game Engine | HTML5 Canvas 2D + requestAnimationFrame |
+| Game Engine | HTML5 Canvas 2D + `requestAnimationFrame` |
 | Styling | Tailwind CSS 3 |
 | Blockchain | ethers.js v6 + Solidity 0.8.20 |
-| Deployment | Hardhat → Monad Testnet |
+| Dev / Deploy | Hardhat → Monad Testnet |
 | State | Zustand |
 | Notifications | react-hot-toast |
-| Sounds | Web Audio API (no audio files) |
+| Sounds | Web Audio API (zero audio files) |
+| Hosting | Vercel (auto-deploy on push) |
 
 ---
 
-## ⚡ Monad Speed Demo
+## ⚡ Why Monad?
 
-Every 5 coins triggers an on-chain TX. The in-game TX feed shows real confirmation times — typically **<500ms** on Monad Testnet — compared to 12-15 seconds on Ethereum.
+Monad's parallel EVM and fast block times make the on-chain game loop feel native. Score submissions and leaderboard updates confirm in **< 500 ms** — something impossible on Ethereum mainnet. Private lobbies settle instantly, making staking feel like a real-time bet, not a waiting game.
 
 ---
 
 ## 📝 License
 
-MIT — built for the Monad Hackathon.
+MIT — Built for **Monad Blitz Hyderabad Hackathon 2025**.
