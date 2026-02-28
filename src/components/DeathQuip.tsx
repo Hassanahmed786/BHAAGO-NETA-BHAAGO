@@ -100,7 +100,7 @@ function injectStyles() {
       border-radius: 10px;
       box-shadow: 0 0 24px rgba(255,0,64,0.5), 0 0 48px rgba(131,110,249,0.3), 0 8px 32px rgba(0,0,0,0.9);
       display: block;
-      width: clamp(120px, 22vw, 200px);
+      width: clamp(160px, 28vw, 260px);
       height: auto;
     }
   `;
